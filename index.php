@@ -56,20 +56,17 @@
                 $str = $item->zk_final_price-$coupon;
                 $decs = explode(".", $str);
                 $dec = $decs[1]>0?'.'.$decs[1]:'.0';
-                file_put_contents($filename,"<li class=\"pro_detail_to\" style=\"margin: 0px 15px 16px 0px; padding: 7px 8px;\">".
-                "\n<div class=\"zk-item\" style=\"width: 220px; height: 307px;\">".
-                "\n<div class=\"img-area\" style=\"width: 220px; height: 220px;\">".
-                "\n<a class=\"alink\" target=\"_blank\" href=\"".$ccurl."\" style=\"width: 220px; height: 220px;\">\n", FILE_APPEND);
+                file_put_contents($filename,"<li class=\"pro_detail_to\">\n<div class=\"zk-item\">\n<div class=\"img-area\">\n<a class=\"alink\" target=\"_blank\" href=\"".$ccurl."\">\n", FILE_APPEND);
                 if ($item->coupon_click_url != null){ 
-                    file_put_contents($filename,"<div class=\"lq\">\n<span class=\"lq-t-d1\">领优惠券</span>\n<span class=\"lq-t-d2\">省<em>".
-                    "".$coupon."</em>元</span>\n</div>\n<div class=\"lq-b\"></div>\n", FILE_APPEND);
+                    file_put_contents($filename,"<div class=\"lq\">\n<div class=\"lq-t\">\n<span class=\"lq-t-d1\">领优惠券</span>\n<span class=\"lq-t-d2\">省<em>".
+                    "".$coupon."</em>元</span>\n</div>\n<div class=\"lq-b\"></div>\n</div>\n", FILE_APPEND);
                 }
-                file_put_contents($filename,"<img class=\"swiper-lazy\" src=\"".$item->pict_url."\">\n</a>\n</div>".
-                "\n<p class=\"title-area item\"><span class=\"post-free\">包邮</span>".$item->title."</p>\n<div class=\"raw-price-area\">".$zk_price."\n", FILE_APPEND);
+                file_put_contents($filename,"<img class=\"swiper-lazy\" data-src=\"".$item->pict_url."\">\n</a>\n</div>\n".
+                "<p class=\"title-area item\"><span class=\"post-free\">包邮</span>".$item->title."</p>\n<div class=\"raw-price-area\">".$zk_price."", FILE_APPEND);
                 if ($item->coupon_click_url != null){
-                    file_put_contents($filename, "<p class=\"sold item\">已领".($item->coupon_total_count-$item->coupon_remain_count)."张券</p>\n", FILE_APPEND);
+                    file_put_contents($filename, "<p class=\"sold item\">已领".($item->coupon_total_count-$item->coupon_remain_count)."张券</p>", FILE_APPEND);
                 }else{
-                    file_put_contents($filename, "<p class=\"sold item\">已售".$item->volume."笔</p>\n", FILE_APPEND);
+                    file_put_contents($filename, "<p class=\"sold item\">已售".$item->volume."笔</p>", FILE_APPEND);
                 }
                 file_put_contents($filename, "</div>\n<div class=\"info\">\n<div class=\"price-area\">\n<span class=\"price\">¥</span><em class=\"number-font\">".$decs[0]."".
                 "</em><em class=\"decimal\">".$dec."</em>\n", FILE_APPEND);
@@ -82,7 +79,7 @@
                     file_put_contents($filename, "<div class=\"buy-area\">\n<a rel=\"nofollow\" target=\"_blank\" href=\"".$ccurl."\">\n<span class=\"coupon-amount\">".$ptcn."</span>\n".
                     "<span class=\"btn-title\">去领券</span>\n</a>\n</div>\n", FILE_APPEND);
                 }
-                file_put_contents($filename, "<div class=\"platform-area\"><span>".$ptcn."</span><img class=\"swiper-lazy\" src=\"../../img/".$pt.".png\"></div>\n</div>\n</div>\n</li>\n", FILE_APPEND);
+                file_put_contents($filename, "<div class=\"platform-area\"><span>".$ptcn."</span><img class=\"swiper-lazy\" data-src=\"../../img/".$pt.".png\"></div>\n</div>\n</div>\n</li>\n", FILE_APPEND);
             }
             file_put_contents($filename, "</ul>", FILE_APPEND);
         }
