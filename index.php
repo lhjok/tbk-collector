@@ -36,8 +36,8 @@
             $resp = $c->execute($req);
             $title = explode("-", $list->favorites_title);
             $filename = $title[0].'-'.date("Y-m-d").'.md';
-            if($title[0] == "首页"){ $show = "index = \"添加这一行将显示在首页\"\n"; }else{ $show = "series = [\"".$title[0]."\"]\n"; }
-            file_put_contents( $filename, "+++\ntitle = \"".$title[1]."\"\ndate = \"".date("Y-m-d")."\"\n".$show."+++\n\n<ul class=\"pro_detail\">\n" );
+            if($title[0] == "首页"){ $show = "index = \"添加这一行将显示在首页\"".PHP_EOL.""; }else{ $show = "series = [\"".$title[0]."\"]".PHP_EOL.""; }
+            file_put_contents( $filename, "+++".PHP_EOL."title = \"".$title[1]."\"".PHP_EOL."date = \"".date("Y-m-d")."\"".PHP_EOL."".$show."+++".PHP_EOL.PHP_EOL."<ul class=\"pro_detail\">".PHP_EOL."" );
             foreach ($resp->results->uatm_tbk_item as $item) {
                 $coupon = 0;
                 $ccurl = $item->click_url;
@@ -56,30 +56,30 @@
                 $str = $item->zk_final_price-$coupon;
                 $decs = explode(".", $str);
                 $dec = $decs[1]>0?'.'.$decs[1]:'.0';
-                file_put_contents($filename,"<li class=\"pro_detail_to\">\n<div class=\"zk-item\">\n<div class=\"img-area\">\n<a class=\"alink\" target=\"_blank\" href=\"".$ccurl."\">\n", FILE_APPEND);
+                file_put_contents($filename,"<li class=\"pro_detail_to\">".PHP_EOL."<div class=\"zk-item\">".PHP_EOL."<div class=\"img-area\">".PHP_EOL."<a class=\"alink\" target=\"_blank\" href=\"".$ccurl."\">".PHP_EOL."", FILE_APPEND);
                 if ($item->coupon_click_url != null){ 
-                    file_put_contents($filename,"<div class=\"lq\">\n<div class=\"lq-t\">\n<span class=\"lq-t-d1\">领优惠券</span>\n<span class=\"lq-t-d2\">省<em>".
-                    "".$coupon."</em>元</span>\n</div>\n<div class=\"lq-b\"></div>\n</div>\n", FILE_APPEND);
+                    file_put_contents($filename,"<div class=\"lq\">".PHP_EOL."<div class=\"lq-t\">".PHP_EOL."<span class=\"lq-t-d1\">领优惠券</span>".PHP_EOL."<span class=\"lq-t-d2\">省<em>".
+                    "".$coupon."</em>元</span>".PHP_EOL."</div>".PHP_EOL."<div class=\"lq-b\"></div>".PHP_EOL."</div>".PHP_EOL."", FILE_APPEND);
                 }
-                file_put_contents($filename,"<img class=\"swiper-lazy\" data-src=\"".$item->pict_url."\">\n</a>\n</div>\n".
-                "<p class=\"title-area item\"><span class=\"post-free\">包邮</span>".$item->title."</p>\n<div class=\"raw-price-area\">".$zk_price."", FILE_APPEND);
+                file_put_contents($filename,"<img class=\"swiper-lazy\" data-src=\"".$item->pict_url."\">".PHP_EOL."</a>".PHP_EOL."</div>".PHP_EOL."".
+                "<p class=\"title-area item\"><span class=\"post-free\">包邮</span>".$item->title."</p>".PHP_EOL."<div class=\"raw-price-area\">".$zk_price."", FILE_APPEND);
                 if ($item->coupon_click_url != null){
                     file_put_contents($filename, "<p class=\"sold item\">已领".($item->coupon_total_count-$item->coupon_remain_count)."张券</p>", FILE_APPEND);
                 }else{
                     file_put_contents($filename, "<p class=\"sold item\">已售".$item->volume."笔</p>", FILE_APPEND);
                 }
-                file_put_contents($filename, "</div>\n<div class=\"info\">\n<div class=\"price-area\">\n<span class=\"price\">¥</span><em class=\"number-font\">".$decs[0]."".
-                "</em><em class=\"decimal\">".$dec."</em>\n", FILE_APPEND);
+                file_put_contents($filename, "</div>".PHP_EOL."<div class=\"info\">".PHP_EOL."<div class=\"price-area\">".PHP_EOL."<span class=\"price\">¥</span><em class=\"number-font\">".$decs[0]."".
+                "</em><em class=\"decimal\">".$dec."</em>".PHP_EOL."", FILE_APPEND);
                 if ($item->coupon_click_url != null){
-                    file_put_contents($filename, "<i style=\"background: url(../../img/juanhoujia.png) center no-repeat;\"></i><span class=\"volume-price\">卷后价</span>\n</div>\n", FILE_APPEND);
+                    file_put_contents($filename, "<i style=\"background: url(../../img/juanhoujia.png) center no-repeat;\"></i><span class=\"volume-price\">卷后价</span>".PHP_EOL."</div>".PHP_EOL."", FILE_APPEND);
                 }else{
-                    file_put_contents($filename, "<i style=\"background: url(../../img/zhehoujia.png) center no-repeat;\"></i><span class=\"volume-price\">折后价</span>\n</div>\n", FILE_APPEND);
+                    file_put_contents($filename, "<i style=\"background: url(../../img/zhehoujia.png) center no-repeat;\"></i><span class=\"volume-price\">折后价</span>".PHP_EOL."</div>".PHP_EOL."", FILE_APPEND);
                 }
                 if ($item->coupon_click_url != null){
-                    file_put_contents($filename, "<div class=\"buy-area\">\n<a rel=\"nofollow\" target=\"_blank\" href=\"".$ccurl."\">\n<span class=\"coupon-amount\">".$ptcn."</span>\n".
-                    "<span class=\"btn-title\">去领券</span>\n</a>\n</div>\n", FILE_APPEND);
+                    file_put_contents($filename, "<div class=\"buy-area\">".PHP_EOL."<a rel=\"nofollow\" target=\"_blank\" href=\"".$ccurl."\">".PHP_EOL."<span class=\"coupon-amount\">".$ptcn."</span>".PHP_EOL."".
+                    "<span class=\"btn-title\">去领券</span>".PHP_EOL."</a>".PHP_EOL."</div>".PHP_EOL."", FILE_APPEND);
                 }
-                file_put_contents($filename, "<div class=\"platform-area\"><span>".$ptcn."</span><img class=\"swiper-lazy\" data-src=\"../../img/".$pt.".png\"></div>\n</div>\n</div>\n</li>\n", FILE_APPEND);
+                file_put_contents($filename, "<div class=\"platform-area\"><span>".$ptcn."</span><img class=\"swiper-lazy\" data-src=\"../../img/".$pt.".png\"></div>".PHP_EOL."</div>".PHP_EOL."</div>".PHP_EOL."</li>".PHP_EOL."", FILE_APPEND);
             }
             file_put_contents($filename, "</ul>", FILE_APPEND);
         }
