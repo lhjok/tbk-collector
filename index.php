@@ -1,17 +1,19 @@
+<head><link rel="stylesheet" type="text/css" href="../css/style.css"></head>
 <?php if (isset($_GET["res"]) == 'ok') { ?>
-    <div style="position:absolute;width:200px;height:80px;top:0;right:0;bottom:0;left:0;margin:auto;">
-        <input style="width:200px;height:80px;cursor:pointer;" type="button" onclick="window.location='index.php'" value="生成完毕"/>
+    <div class="buttons">
+        <input type="button" onclick="window.location='index.php'" value="生成完毕"/>
     </div>
 <?php }else{ ?>
-    <div style="position:absolute;width:200px;height:80px;top:0;right:0;bottom:0;left:0;margin:auto;">
-        <form action="" method="post" style="width:200px;height:80px;margin-bottom:0;">
-            <input style="width:200px;height:80px;cursor:pointer;" type="submit" name="submit" value="一键生成"/>
+    <div class="buttons">
+        <form action="" method="post">
+            <input type="submit" name="submit" value="一键生成"/>
         </form>
     </div>
 <?php } ?>
 
 <?php
     include "TopSdk.php";
+    require_once ('config.php');
     date_default_timezone_set('Asia/Shanghai');
     error_reporting(E_ALL);
 
@@ -56,7 +58,14 @@
                 $str = $item->zk_final_price-$coupon;
                 $decs = explode(".", $str);
                 $dec = $decs[1]>0?'.'.$decs[1]:'.0';
-                file_put_contents($filename,"<li class=\"pro_detail_to\">".PHP_EOL."<div class=\"zk-item\">".PHP_EOL."<div class=\"img-area\">".PHP_EOL."<a class=\"alink\" target=\"_blank\" href=\"".$ccurl."\">".PHP_EOL."", FILE_APPEND);
+                $dcurl = $ccurl.'-'.date("Y-m-d");
+                $surl = shorturl($dcurl);
+                $result = mysqli_query($conn, "select * from shorturl where shorturl_id='".$surl."'")or die(mysqli_error($conn));
+                $snum = mysqli_num_rows($result);
+                if($snum == 0){
+                    mysqli_query($conn, "insert into shorturl (shorturl_id, shorturl_title, shorturl_img, shorturl_url) values('".$surl."','".$item->title."','".$item->pict_url."','".$ccurl."')")or die(mysqli_error($conn));
+                }
+                file_put_contents($filename,"<li class=\"pro_detail_to\">".PHP_EOL."<div class=\"zk-item\">".PHP_EOL."<div class=\"img-area\">".PHP_EOL."<a class=\"alink\" target=\"_blank\" href=\"http://fmego.com/code.php?cv=".$surl."\">".PHP_EOL."", FILE_APPEND);
                 if ($item->coupon_click_url != null){ 
                     file_put_contents($filename,"<div class=\"lq\">".PHP_EOL."<div class=\"lq-t\">".PHP_EOL."<span class=\"lq-t-d1\">领优惠券</span>".PHP_EOL."<span class=\"lq-t-d2\">省<em>".
                     "".$coupon."</em>元</span>".PHP_EOL."</div>".PHP_EOL."<div class=\"lq-b\"></div>".PHP_EOL."</div>".PHP_EOL."", FILE_APPEND);
@@ -76,7 +85,7 @@
                     file_put_contents($filename, "<i style=\"background: url(../../img/zhehoujia.png) center no-repeat;\"></i><span class=\"volume-price\">折后价</span>".PHP_EOL."</div>".PHP_EOL."", FILE_APPEND);
                 }
                 if ($item->coupon_click_url != null){
-                    file_put_contents($filename, "<div class=\"buy-area\">".PHP_EOL."<a rel=\"nofollow\" target=\"_blank\" href=\"".$ccurl."\">".PHP_EOL."<span class=\"coupon-amount\">".$ptcn."</span>".PHP_EOL."".
+                    file_put_contents($filename, "<div class=\"buy-area\">".PHP_EOL."<a rel=\"nofollow\" target=\"_blank\" href=\"http://fmego.com/code.php?cv=".$surl."\">".PHP_EOL."<span class=\"coupon-amount\">".$ptcn."</span>".PHP_EOL."".
                     "<span class=\"btn-title\">去领券</span>".PHP_EOL."</a>".PHP_EOL."</div>".PHP_EOL."", FILE_APPEND);
                 }
                 file_put_contents($filename, "<div class=\"platform-area\"><span>".$ptcn."</span><img class=\"swiper-lazy\" data-src=\"../../img/".$pt.".png\"></div>".PHP_EOL."</div>".PHP_EOL."</div>".PHP_EOL."</li>".PHP_EOL."", FILE_APPEND);

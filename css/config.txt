@@ -1,0 +1,19 @@
+==============================================================================================
+CREATE DATABASE `code`;
+SET NAMES `utf8`;
+----------------------------------------------------------------------------------------------
+-- Source Database   : `code`
+DROP TABLE IF EXISTS `shorturl`;
+----------------------------------------------------------------------------------------------
+use code;    //选择数据库;
+CREATE TABLE `shorturl` (
+  `id` int(11) NOT NULL auto_increment COMMENT '默认ID编号',
+  `shorturl_id` varchar(50) collate utf8_unicode_ci NOT NULL COMMENT '唯一ID编号',
+  `shorturl_title` varchar(300) collate utf8_unicode_ci NOT NULL COMMENT '商品标题',
+  `shorturl_img` varchar(200) collate utf8_unicode_ci NOT NULL COMMENT '商品主图',
+  `shorturl_url` varchar(500) collate utf8_unicode_ci NOT NULL COMMENT '推广链接',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `shorturl_account` (`shorturl_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+==============================================================================================
