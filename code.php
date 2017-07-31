@@ -14,15 +14,17 @@
         if ($snum > 0) {
             if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
                 if (strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone') || strpos($_SERVER['HTTP_USER_AGENT'], 'iPad')) {
-                    $brow = "Safari"; $icon = "safari";
+                    $brow = "Safari"; $icon = "background-image: url(../img/safari.png);";
+                    $ptop = "top: 42px;"; $tsbg = "background-image: url(../img/ios.png);";
                 }else if (strpos($_SERVER['HTTP_USER_AGENT'], 'Android')) {
-                    $brow = "淘宝或浏览器打开"; $icon = "browser";
+                    $brow = "淘宝或浏览器打开"; $icon = "display: none;";
+                    $ptop = "top: 32px;"; $tsbg = "background-image: url(../img/android.png);";
                 } ?>
                 <div class="weixin">
-                    <div class="prompt">
-                        <div class="prompt-txt">
+                    <div class="prompt" style="<?php echo $tsbg;?>">
+                        <div class="prompt-txt" style="<?php echo $ptop;?>">
                             <span>点击右上角 选择<?php echo $brow;?></span>
-                            <i style="background-image: url(../img/<?php echo $icon;?>.png);"></i>
+                            <i style="<?php echo $icon;?>"></i>
                         </div>
                     </div>
                     <div class="item">
