@@ -65,7 +65,7 @@
                 if($snum == 0){
                     mysqli_query($conn, "insert into shorturl (shorturl_id, shorturl_title, shorturl_img, shorturl_url) values('".$surl."','".$item->title."','".$item->pict_url."','".$ccurl."')")or die(mysqli_error($conn));
                 }
-                file_put_contents($filename,"<li class=\"pro_detail_to\">".PHP_EOL."<div class=\"zk-item\">".PHP_EOL."<div class=\"img-area\">".PHP_EOL."<a class=\"alink\" target=\"_blank\" href=\"http://fmego.com/code.php?cv=".$surl."\">".PHP_EOL."", FILE_APPEND);
+                file_put_contents($filename,"<li class=\"pro_detail_to\">".PHP_EOL."<div class=\"zk-item\">".PHP_EOL."<div class=\"img-area\">".PHP_EOL."<a class=\"alink\" target=\"_blank\" href=\"http://www.iinrs.top/code.php?cv=".$surl."\">".PHP_EOL."", FILE_APPEND);
                 if ($item->coupon_click_url != null){ 
                     file_put_contents($filename,"<div class=\"lq\">".PHP_EOL."<div class=\"lq-t\">".PHP_EOL."<span class=\"lq-t-d1\">领优惠券</span>".PHP_EOL."<span class=\"lq-t-d2\">省<em>".
                     "".$coupon."</em>元</span>".PHP_EOL."</div>".PHP_EOL."<div class=\"lq-b\"></div>".PHP_EOL."</div>".PHP_EOL."", FILE_APPEND);
@@ -85,7 +85,7 @@
                     file_put_contents($filename, "<i style=\"background: url(../../img/zhehoujia.png) center no-repeat;\"></i><span class=\"volume-price\">折后价</span>".PHP_EOL."</div>".PHP_EOL."", FILE_APPEND);
                 }
                 if ($item->coupon_click_url != null){
-                    file_put_contents($filename, "<div class=\"buy-area\">".PHP_EOL."<a rel=\"nofollow\" target=\"_blank\" href=\"http://fmego.com/code.php?cv=".$surl."\">".PHP_EOL."<span class=\"coupon-amount\">".$ptcn."</span>".PHP_EOL."".
+                    file_put_contents($filename, "<div class=\"buy-area\">".PHP_EOL."<a rel=\"nofollow\" target=\"_blank\" href=\"http://www.iinrs.top/code.php?cv=".$surl."\">".PHP_EOL."<span class=\"coupon-amount\">".$ptcn."</span>".PHP_EOL."".
                     "<span class=\"btn-title\">去领券</span>".PHP_EOL."</a>".PHP_EOL."</div>".PHP_EOL."", FILE_APPEND);
                 }
                 file_put_contents($filename, "<div class=\"platform-area\"><span>".$ptcn."</span><img class=\"swiper-lazy\" data-src=\"../../img/".$pt.".png\"></div>".PHP_EOL."</div>".PHP_EOL."</div>".PHP_EOL."</li>".PHP_EOL."", FILE_APPEND);
